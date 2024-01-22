@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Simple Bulletin Board</title>
+</head>
+<body>
+<h1>Simple Bulletin Board</h1>
+
+<form action="/post" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="content">Content:</label>
+    <textarea id="content" name="content" required></textarea>
+
+    <button type="submit">Post</button>
+</form>
+
+<div>
+    <ul>
+        <li th:each="post : ${posts}">
+            <span th:text="${post.username}">Username</span>:
+            <span th:text="${post.content}">Content</span>
+            <a th:href="@{/delete/{id}(id=${post.id})}">Delete</a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
