@@ -12,8 +12,8 @@
 
     <label for="content">Content:</label>
     <textarea id="content" name="content" required></textarea>
-
     <button type="submit">Post</button>
+    <a href="/archive">archive</a>
 </form>
 
 <div>
@@ -21,7 +21,7 @@
         <li th:each="post : ${posts}">
             <span th:text="${post.username}">Username</span>:
             <span th:text="${post.content}">Content</span>
-            <a th:href="@{/delete/{id}(id=${post.id})}">Delete</a>
+            <a th:href="@{/toggleGetState/{id}(id=${post.id})}"><button>archive</button></a>
         </li>
     </ul>
 </div>

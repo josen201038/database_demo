@@ -13,6 +13,8 @@ public class Post {
     private String username;
     private String content;
 
+    private boolean state = true;
+
     // Getters
     public Long getId() {
         return id;
@@ -26,6 +28,8 @@ public class Post {
         return content;
     }
 
+    public boolean isState() { return state; }
+
     // Setters
     public void setId(Long id) {
         this.id = id;
@@ -38,5 +42,7 @@ public class Post {
     public void setContent(String content) {
         this.content = content;
     }
+
+    public void setState(boolean state) { this.state = state; }
 }
 

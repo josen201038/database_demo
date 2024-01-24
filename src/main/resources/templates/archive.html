@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- ヘッダー情報（CSS、メタデータなど） -->
+</head>
+<body>
+<h1>アーカイブ</h1>
+<!-- 投稿をループで表示 -->
+<div th:each="post : ${posts}">
+    <!-- 投稿が非アクティブ（state = false）の場合のみ表示 -->
+    <div th:unless="${post.state}">
+        <!-- 投稿の内容 -->
+        <span th:text="${post.username}">Username</span>:
+        <span th:text="${post.content}">Content</span>
+        <a th:href="@{/toggleState/{id}(id=${post.id})}"><button>main</button></a>
+        <a th:href="@{/delete/{id}(id=${post.id})}"><button>Delete</button></a>
+    </div>
+</div>
+</body>
+</html>

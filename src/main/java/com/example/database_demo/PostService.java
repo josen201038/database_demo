@@ -14,17 +14,29 @@ public class PostService {
     }
 
     @Transactional
-    public Post savePost(Post post) {
-        return postRepository.save(post);
+    public void savePost(Post post) {
+        postRepository.save(post);
     }
 
-    public List<Post> getAllPosts() {
-        return postRepository.findAll();
+    public List<Post> getActivePosts() {
+        return postRepository.findByState(true);
+    }
+
+    public List<Post> getInactivePosts() {
+        return postRepository.findByState(false);
     }
 
     @Transactional
     public void deletePost(Long id) {
         postRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void toggleState(Long id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid post ID: " + id));
+        post.setState(!post.isState());
+        postRepository.save(post);
     }
 }
 
