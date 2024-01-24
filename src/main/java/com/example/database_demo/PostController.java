@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class PostController {
     private final PostService postService;
@@ -48,6 +50,22 @@ public class PostController {
     @GetMapping("/toggleState/{id}")
     public String togglePostState(@PathVariable Long id) {
         postService.toggleState(id);
+        return "redirect:/archive";
+    }
+
+    @PostMapping("/bulkUpdate")
+    public String bulkUpdatePosts(@RequestParam List<Long> postIds) {
+        postService.updatePostsState(postIds, false); // アーカイブする場合、状態をfalseに設定
+        return "redirect:/";
+    }
+
+    @PostMapping("/bulkActionArchive")
+    public String bulkActionArchive(@RequestParam List<Long> postIds, @RequestParam String action) {
+        if ("toMain".equals(action)) {
+            postService.updatePostsState(postIds, true); // メインに戻す
+        } else if ("delete".equals(action)) {
+            postService.deletePosts(postIds); // 削除する
+        }
         return "redirect:/archive";
     }
 }

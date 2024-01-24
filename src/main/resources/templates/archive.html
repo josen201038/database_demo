@@ -5,16 +5,20 @@
 </head>
 <body>
 <h1>アーカイブ</h1>
-<!-- 投稿をループで表示 -->
-<div th:each="post : ${posts}">
-    <!-- 投稿が非アクティブ（state = false）の場合のみ表示 -->
-    <div th:unless="${post.state}">
-        <!-- 投稿の内容 -->
+<a href="/">main</a>
+<!-- 一括操作用のフォーム -->
+<form action="/bulkActionArchive" method="post">
+    <div th:each="post : ${posts}" th:unless="${post.state}">
+        <!-- チェックボックス -->
+        <input type="checkbox" th:name="postIds" th:value="${post.id}">
         <span th:text="${post.username}">Username</span>:
         <span th:text="${post.content}">Content</span>
-        <a th:href="@{/toggleState/{id}(id=${post.id})}"><button>main</button></a>
-        <a th:href="@{/delete/{id}(id=${post.id})}"><button>Delete</button></a>
     </div>
-</div>
+    <!-- 一括メインに戻すボタン -->
+    <button type="submit" name="action" value="toMain">Bulk to Main</button>
+    <!-- 一括削除ボタン -->
+    <button type="submit" name="action" value="delete">Bulk Delete</button>
+</form>
+
 </body>
 </html>

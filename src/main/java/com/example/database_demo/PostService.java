@@ -38,5 +38,22 @@ public class PostService {
         post.setState(!post.isState());
         postRepository.save(post);
     }
+
+    @Transactional
+    public void updatePostsState(List<Long> postIds, boolean newState) {
+        for (Long postId : postIds) {
+            Post post = postRepository.findById(postId)
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid post ID: " + postId));
+            post.setState(newState);
+            postRepository.save(post);
+        }
+    }
+
+    @Transactional
+    public void deletePosts(List<Long> postIds) {
+        for (Long postId : postIds) {
+            postRepository.deleteById(postId);
+        }
+    }
 }
 

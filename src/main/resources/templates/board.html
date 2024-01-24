@@ -16,14 +16,19 @@
     <a href="/archive">archive</a>
 </form>
 
-<div>
-    <ul>
-        <li th:each="post : ${posts}">
-            <span th:text="${post.username}">Username</span>:
-            <span th:text="${post.content}">Content</span>
-            <a th:href="@{/toggleGetState/{id}(id=${post.id})}"><button>archive</button></a>
-        </li>
-    </ul>
-</div>
+
+<form action="/bulkUpdate" method="post">
+    <div>
+        <ul>
+            <div th:each="post : ${posts}">
+                <input type="checkbox" th:name="postIds" th:value="${post.id}">
+                <span th:text="${post.username}">Username</span>:
+                <span th:text="${post.content}">Content</span>
+                <a th:href="@{/toggleGetState/{id}(id=${post.id})}"><button type="button">Archive</button></a>
+            </div>
+        </ul>
+    </div>
+    <button type="submit">Bulk Archive</button>
+</form>
 </body>
 </html>
